@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS `mdl_glossary_alias`;
+CREATE TABLE `mdl_glossary_alias` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `entryid` bigint(10) unsigned NOT NULL default '0',
+  `alias` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_glosalia_ent_ix` (`entryid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='entries alias';
+LOCK TABLES `mdl_glossary_alias` WRITE;
+/*!40000 ALTER TABLE `mdl_glossary_alias` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_glossary_alias` ENABLE KEYS */;
+UNLOCK TABLES;

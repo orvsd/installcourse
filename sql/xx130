@@ -1,0 +1,21 @@
+DROP TABLE IF EXISTS `mdl_question_states`;
+CREATE TABLE `mdl_question_states` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `attempt` bigint(10) unsigned NOT NULL default '0',
+  `question` bigint(10) unsigned NOT NULL default '0',
+  `originalquestion` bigint(10) unsigned NOT NULL default '0',
+  `seq_number` mediumint(6) unsigned NOT NULL default '0',
+  `answer` text NOT NULL,
+  `timestamp` bigint(10) unsigned NOT NULL default '0',
+  `event` smallint(4) unsigned NOT NULL default '0',
+  `grade` double NOT NULL default '0',
+  `raw_grade` double NOT NULL default '0',
+  `penalty` double NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_quesstat_att_ix` (`attempt`),
+  KEY `mdl_quesstat_que_ix` (`question`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Stores user responses to an attempt, and percentage grades';
+LOCK TABLES `mdl_question_states` WRITE;
+/*!40000 ALTER TABLE `mdl_question_states` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_question_states` ENABLE KEYS */;
+UNLOCK TABLES;

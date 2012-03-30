@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS `mdl_quiz_question_versions`;
+CREATE TABLE `mdl_quiz_question_versions` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `quiz` bigint(10) unsigned NOT NULL default '0',
+  `oldquestion` bigint(10) unsigned NOT NULL default '0',
+  `newquestion` bigint(10) unsigned NOT NULL default '0',
+  `originalquestion` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `timestamp` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_quizquesvers_qui_ix` (`quiz`),
+  KEY `mdl_quizquesvers_old_ix` (`oldquestion`),
+  KEY `mdl_quizquesvers_new_ix` (`newquestion`),
+  KEY `mdl_quizquesvers_ori_ix` (`originalquestion`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='quiz_question_versions table retrofitted from MySQL';
+LOCK TABLES `mdl_quiz_question_versions` WRITE;
+/*!40000 ALTER TABLE `mdl_quiz_question_versions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_quiz_question_versions` ENABLE KEYS */;
+UNLOCK TABLES;

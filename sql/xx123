@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS `mdl_question_randomsamatch`;
+CREATE TABLE `mdl_question_randomsamatch` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `question` bigint(10) unsigned NOT NULL default '0',
+  `choose` bigint(10) unsigned NOT NULL default '4',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_quesrand_que_ix` (`question`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Info about a random short-answer matching question';
+LOCK TABLES `mdl_question_randomsamatch` WRITE;
+/*!40000 ALTER TABLE `mdl_question_randomsamatch` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_question_randomsamatch` ENABLE KEYS */;
+UNLOCK TABLES;

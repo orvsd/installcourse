@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS `mdl_tags`;
+CREATE TABLE `mdl_tags` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `type` varchar(255) NOT NULL default 'official',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `text` varchar(20) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_tags_typuse_ix` (`type`,`userid`),
+  KEY `mdl_tags_tex_ix` (`text`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='tags structure for moodle';
+LOCK TABLES `mdl_tags` WRITE;
+/*!40000 ALTER TABLE `mdl_tags` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_tags` ENABLE KEYS */;
+UNLOCK TABLES;

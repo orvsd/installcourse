@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS `mdl_backup_log`;
+CREATE TABLE `mdl_backup_log` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `courseid` bigint(10) unsigned NOT NULL default '0',
+  `time` bigint(10) unsigned NOT NULL default '0',
+  `laststarttime` bigint(10) unsigned NOT NULL default '0',
+  `info` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_backlog_cou_ix` (`courseid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='To store every course backup log info';
+LOCK TABLES `mdl_backup_log` WRITE;
+/*!40000 ALTER TABLE `mdl_backup_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_backup_log` ENABLE KEYS */;
+UNLOCK TABLES;

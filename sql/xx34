@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS `mdl_course_request`;
+CREATE TABLE `mdl_course_request` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `fullname` varchar(254) NOT NULL default '',
+  `shortname` varchar(15) NOT NULL default '',
+  `summary` text NOT NULL,
+  `reason` text NOT NULL,
+  `requester` bigint(10) NOT NULL default '0',
+  `password` varchar(50) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_courrequ_sho_ix` (`shortname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='course requests';
+LOCK TABLES `mdl_course_request` WRITE;
+/*!40000 ALTER TABLE `mdl_course_request` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_course_request` ENABLE KEYS */;
+UNLOCK TABLES;

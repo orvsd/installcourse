@@ -1,0 +1,21 @@
+DROP TABLE IF EXISTS `mdl_lesson_pages`;
+CREATE TABLE `mdl_lesson_pages` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `lessonid` bigint(10) unsigned NOT NULL default '0',
+  `prevpageid` bigint(10) unsigned NOT NULL default '0',
+  `nextpageid` bigint(10) unsigned NOT NULL default '0',
+  `qtype` smallint(3) unsigned NOT NULL default '0',
+  `qoption` smallint(3) unsigned NOT NULL default '0',
+  `layout` smallint(3) unsigned NOT NULL default '1',
+  `display` smallint(3) unsigned NOT NULL default '1',
+  `timecreated` bigint(10) unsigned NOT NULL default '0',
+  `timemodified` bigint(10) unsigned NOT NULL default '0',
+  `title` varchar(255) NOT NULL default '',
+  `contents` text NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `mdl_lesspage_les_ix` (`lessonid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Defines lesson_pages';
+LOCK TABLES `mdl_lesson_pages` WRITE;
+/*!40000 ALTER TABLE `mdl_lesson_pages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_lesson_pages` ENABLE KEYS */;
+UNLOCK TABLES;

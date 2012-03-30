@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_course_sections`;
+CREATE TABLE `mdl_course_sections` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `course` bigint(10) unsigned NOT NULL default '0',
+  `section` bigint(10) unsigned NOT NULL default '0',
+  `summary` text,
+  `sequence` text,
+  `visible` tinyint(1) NOT NULL default '1',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_coursect_cousec_ix` (`course`,`section`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='to define the sections for each course';
+LOCK TABLES `mdl_course_sections` WRITE;
+/*!40000 ALTER TABLE `mdl_course_sections` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_course_sections` ENABLE KEYS */;
+UNLOCK TABLES;

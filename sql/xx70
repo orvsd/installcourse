@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS `mdl_groups_groupings`;
+CREATE TABLE `mdl_groups_groupings` (
+  `id` bigint(10) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  `description` text,
+  `timecreated` bigint(10) unsigned NOT NULL default '0',
+  `viewowngroup` tinyint(1) unsigned NOT NULL default '1',
+  `viewallgroupsmembers` tinyint(1) unsigned NOT NULL default '0',
+  `viewallgroupsactivities` tinyint(1) unsigned NOT NULL default '0',
+  `teachersgroupmark` tinyint(1) unsigned NOT NULL default '0',
+  `teachersgroupview` tinyint(1) unsigned NOT NULL default '0',
+  `teachersoverride` tinyint(1) unsigned NOT NULL default '0',
+  `teacherdeletable` tinyint(1) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='A grouping is a collection of groups.';
+LOCK TABLES `mdl_groups_groupings` WRITE;
+/*!40000 ALTER TABLE `mdl_groups_groupings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_groups_groupings` ENABLE KEYS */;
+UNLOCK TABLES;

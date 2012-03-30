@@ -1,0 +1,21 @@
+DROP TABLE IF EXISTS `mdl_lesson_answers`;
+CREATE TABLE `mdl_lesson_answers` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `lessonid` bigint(10) unsigned NOT NULL default '0',
+  `pageid` bigint(10) unsigned NOT NULL default '0',
+  `jumpto` bigint(11) NOT NULL default '0',
+  `grade` smallint(3) unsigned NOT NULL default '0',
+  `score` bigint(10) NOT NULL default '0',
+  `flags` smallint(3) unsigned NOT NULL default '0',
+  `timecreated` bigint(10) unsigned NOT NULL default '0',
+  `timemodified` bigint(10) unsigned NOT NULL default '0',
+  `answer` text,
+  `response` text,
+  PRIMARY KEY  (`id`),
+  KEY `mdl_lessansw_les_ix` (`lessonid`),
+  KEY `mdl_lessansw_pag_ix` (`pageid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Defines lesson_answers';
+LOCK TABLES `mdl_lesson_answers` WRITE;
+/*!40000 ALTER TABLE `mdl_lesson_answers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_lesson_answers` ENABLE KEYS */;
+UNLOCK TABLES;

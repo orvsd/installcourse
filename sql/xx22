@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS `mdl_choice_answers`;
+CREATE TABLE `mdl_choice_answers` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `choiceid` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `optionid` bigint(10) unsigned NOT NULL default '0',
+  `timemodified` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_choiansw_use_ix` (`userid`),
+  KEY `mdl_choiansw_cho_ix` (`choiceid`),
+  KEY `mdl_choiansw_opt_ix` (`optionid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='choices performed by users';
+LOCK TABLES `mdl_choice_answers` WRITE;
+/*!40000 ALTER TABLE `mdl_choice_answers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_choice_answers` ENABLE KEYS */;
+UNLOCK TABLES;

@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_groups_members`;
+CREATE TABLE `mdl_groups_members` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `groupid` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `timeadded` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_groumemb_grouse_uix` (`groupid`,`userid`),
+  KEY `mdl_groumemb_gro_ix` (`groupid`),
+  KEY `mdl_groumemb_use_ix` (`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Link a user to a group.';
+LOCK TABLES `mdl_groups_members` WRITE;
+/*!40000 ALTER TABLE `mdl_groups_members` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_groups_members` ENABLE KEYS */;
+UNLOCK TABLES;

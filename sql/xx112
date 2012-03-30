@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS `mdl_question_calculated`;
+CREATE TABLE `mdl_question_calculated` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `question` bigint(10) unsigned NOT NULL default '0',
+  `answer` bigint(10) unsigned NOT NULL default '0',
+  `tolerance` varchar(20) NOT NULL default '0.0',
+  `tolerancetype` bigint(10) NOT NULL default '1',
+  `correctanswerlength` bigint(10) NOT NULL default '2',
+  `correctanswerformat` bigint(10) NOT NULL default '2',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_quescalc_ans_ix` (`answer`),
+  KEY `mdl_quescalc_que_ix` (`question`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Options for questions of type calculated';
+LOCK TABLES `mdl_question_calculated` WRITE;
+/*!40000 ALTER TABLE `mdl_question_calculated` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_question_calculated` ENABLE KEYS */;
+UNLOCK TABLES;

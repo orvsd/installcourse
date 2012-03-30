@@ -1,0 +1,24 @@
+DROP TABLE IF EXISTS `mdl_chat_users`;
+CREATE TABLE `mdl_chat_users` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `chatid` bigint(11) NOT NULL default '0',
+  `userid` bigint(11) NOT NULL default '0',
+  `groupid` bigint(11) NOT NULL default '0',
+  `version` varchar(16) NOT NULL default '',
+  `ip` varchar(15) NOT NULL default '',
+  `firstping` bigint(10) unsigned NOT NULL default '0',
+  `lastping` bigint(10) unsigned NOT NULL default '0',
+  `lastmessageping` bigint(10) unsigned NOT NULL default '0',
+  `sid` varchar(32) NOT NULL default '',
+  `course` bigint(10) unsigned NOT NULL default '0',
+  `lang` varchar(30) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_chatuser_use_ix` (`userid`),
+  KEY `mdl_chatuser_las_ix` (`lastping`),
+  KEY `mdl_chatuser_gro_ix` (`groupid`),
+  KEY `mdl_chatuser_cha_ix` (`chatid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Keeps track of which users are in which chat rooms';
+LOCK TABLES `mdl_chat_users` WRITE;
+/*!40000 ALTER TABLE `mdl_chat_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_chat_users` ENABLE KEYS */;
+UNLOCK TABLES;

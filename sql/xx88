@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS `mdl_lesson_grades`;
+CREATE TABLE `mdl_lesson_grades` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `lessonid` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `grade` double unsigned NOT NULL default '0',
+  `late` smallint(3) unsigned NOT NULL default '0',
+  `completed` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_lessgrad_use_ix` (`userid`),
+  KEY `mdl_lessgrad_les_ix` (`lessonid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Defines lesson_grades';
+LOCK TABLES `mdl_lesson_grades` WRITE;
+/*!40000 ALTER TABLE `mdl_lesson_grades` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_lesson_grades` ENABLE KEYS */;
+UNLOCK TABLES;

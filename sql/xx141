@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_role_allow_override`;
+CREATE TABLE `mdl_role_allow_override` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `roleid` bigint(10) unsigned NOT NULL default '0',
+  `allowoverride` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_rolealloover_rolall_uix` (`roleid`,`allowoverride`),
+  KEY `mdl_rolealloover_rol_ix` (`roleid`),
+  KEY `mdl_rolealloover_all_ix` (`allowoverride`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='this defines what role can override what role';
+LOCK TABLES `mdl_role_allow_override` WRITE;
+/*!40000 ALTER TABLE `mdl_role_allow_override` DISABLE KEYS */;
+INSERT INTO `mdl_role_allow_override` VALUES (1,1,1),(2,1,2),(3,1,4),(4,1,3),(5,1,5),(6,1,6),(7,1,7);
+/*!40000 ALTER TABLE `mdl_role_allow_override` ENABLE KEYS */;
+UNLOCK TABLES;

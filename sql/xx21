@@ -1,0 +1,23 @@
+DROP TABLE IF EXISTS `mdl_choice`;
+CREATE TABLE `mdl_choice` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `course` bigint(10) unsigned NOT NULL default '0',
+  `name` varchar(255) NOT NULL default '',
+  `text` text NOT NULL,
+  `format` tinyint(2) unsigned NOT NULL default '0',
+  `publish` tinyint(2) unsigned NOT NULL default '0',
+  `showresults` tinyint(2) unsigned NOT NULL default '0',
+  `display` smallint(4) unsigned NOT NULL default '0',
+  `allowupdate` tinyint(2) unsigned NOT NULL default '0',
+  `showunanswered` tinyint(2) unsigned NOT NULL default '0',
+  `limitanswers` tinyint(2) unsigned NOT NULL default '0',
+  `timeopen` bigint(10) unsigned NOT NULL default '0',
+  `timeclose` bigint(10) unsigned NOT NULL default '0',
+  `timemodified` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_choi_cou_ix` (`course`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Available choices are stored here';
+LOCK TABLES `mdl_choice` WRITE;
+/*!40000 ALTER TABLE `mdl_choice` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_choice` ENABLE KEYS */;
+UNLOCK TABLES;

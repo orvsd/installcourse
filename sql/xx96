@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS `mdl_message_read`;
+CREATE TABLE `mdl_message_read` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `useridfrom` bigint(10) NOT NULL default '0',
+  `useridto` bigint(10) NOT NULL default '0',
+  `message` text NOT NULL,
+  `format` smallint(4) unsigned NOT NULL default '0',
+  `timecreated` bigint(10) NOT NULL default '0',
+  `timeread` bigint(10) NOT NULL default '0',
+  `messagetype` varchar(50) NOT NULL default '',
+  `mailed` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_messread_use_ix` (`useridfrom`),
+  KEY `mdl_messread_use2_ix` (`useridto`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Stores all messages that have been read';
+LOCK TABLES `mdl_message_read` WRITE;
+/*!40000 ALTER TABLE `mdl_message_read` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_message_read` ENABLE KEYS */;
+UNLOCK TABLES;

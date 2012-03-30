@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS `mdl_scale`;
+CREATE TABLE `mdl_scale` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `courseid` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `name` varchar(255) NOT NULL default '',
+  `scale` text NOT NULL,
+  `description` text NOT NULL,
+  `timemodified` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_scal_cou_ix` (`courseid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Defines grading scales';
+LOCK TABLES `mdl_scale` WRITE;
+/*!40000 ALTER TABLE `mdl_scale` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_scale` ENABLE KEYS */;
+UNLOCK TABLES;

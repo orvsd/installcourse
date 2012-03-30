@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS `mdl_workshop_stockcomments`;
+CREATE TABLE `mdl_workshop_stockcomments` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `workshopid` bigint(10) unsigned NOT NULL default '0',
+  `elementno` bigint(10) unsigned NOT NULL default '0',
+  `comments` text NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `mdl_workstoc_wor_ix` (`workshopid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Info about the teacher comment bank';
+LOCK TABLES `mdl_workshop_stockcomments` WRITE;
+/*!40000 ALTER TABLE `mdl_workshop_stockcomments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_workshop_stockcomments` ENABLE KEYS */;
+UNLOCK TABLES;

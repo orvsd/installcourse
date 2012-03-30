@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS `mdl_hotpot_details`;
+CREATE TABLE `mdl_hotpot_details` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `attempt` bigint(10) unsigned NOT NULL default '0',
+  `details` text,
+  PRIMARY KEY  (`id`),
+  KEY `mdl_hotpdeta_att_ix` (`attempt`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='raw details (as XML) of Hot Potatoes quiz attempts';
+LOCK TABLES `mdl_hotpot_details` WRITE;
+/*!40000 ALTER TABLE `mdl_hotpot_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_hotpot_details` ENABLE KEYS */;
+UNLOCK TABLES;

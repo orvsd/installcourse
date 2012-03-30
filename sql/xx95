@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS `mdl_message_contacts`;
+CREATE TABLE `mdl_message_contacts` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `contactid` bigint(10) unsigned NOT NULL default '0',
+  `blocked` tinyint(1) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_messcont_usecon_uix` (`userid`,`contactid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Maintains lists of relationships between users';
+LOCK TABLES `mdl_message_contacts` WRITE;
+/*!40000 ALTER TABLE `mdl_message_contacts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_message_contacts` ENABLE KEYS */;
+UNLOCK TABLES;

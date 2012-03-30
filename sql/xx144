@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_role_names`;
+CREATE TABLE `mdl_role_names` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `roleid` bigint(10) unsigned NOT NULL default '0',
+  `contextid` bigint(10) unsigned NOT NULL default '0',
+  `text` text NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_rolename_rolcon_uix` (`roleid`,`contextid`),
+  KEY `mdl_rolename_rol_ix` (`roleid`),
+  KEY `mdl_rolename_con_ix` (`contextid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='role names in native strings';
+LOCK TABLES `mdl_role_names` WRITE;
+/*!40000 ALTER TABLE `mdl_role_names` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_role_names` ENABLE KEYS */;
+UNLOCK TABLES;

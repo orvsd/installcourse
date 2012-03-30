@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_forum_ratings`;
+CREATE TABLE `mdl_forum_ratings` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `post` bigint(10) unsigned NOT NULL default '0',
+  `time` bigint(10) unsigned NOT NULL default '0',
+  `rating` smallint(4) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_forurati_use_ix` (`userid`),
+  KEY `mdl_forurati_pos_ix` (`post`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='forum_ratings table retrofitted from MySQL';
+LOCK TABLES `mdl_forum_ratings` WRITE;
+/*!40000 ALTER TABLE `mdl_forum_ratings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_forum_ratings` ENABLE KEYS */;
+UNLOCK TABLES;

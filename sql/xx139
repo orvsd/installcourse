@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_role`;
+CREATE TABLE `mdl_role` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  `shortname` varchar(100) NOT NULL default '',
+  `description` text NOT NULL,
+  `sortorder` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_role_sor_uix` (`sortorder`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='moodle roles';
+LOCK TABLES `mdl_role` WRITE;
+/*!40000 ALTER TABLE `mdl_role` DISABLE KEYS */;
+INSERT INTO `mdl_role` VALUES (1,'Administrator','admin','Administrators can usually do anything on the site, in all courses.',0),(2,'Course creator','coursecreator','Course creators can create new courses and teach in them.',1),(3,'Teacher','editingteacher','Teachers can do anything within a course, including changing the activities and grading students.',2),(4,'Non-editing teacher','teacher','Non-editing teachers can teach in courses and grade students, but may not alter activities.',3),(5,'Student','student','Students generally have less privileges within a course.',4),(6,'Guest','guest','Guests have minimal privileges and usually can not enter text anywhere.',5),(7,'Authenticated user','user','All logged in users.',6);
+/*!40000 ALTER TABLE `mdl_role` ENABLE KEYS */;
+UNLOCK TABLES;

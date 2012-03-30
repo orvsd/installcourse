@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS `mdl_glossary_formats`;
+CREATE TABLE `mdl_glossary_formats` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `name` varchar(50) NOT NULL default '',
+  `popupformatname` varchar(50) NOT NULL default '',
+  `visible` tinyint(2) unsigned NOT NULL default '1',
+  `showgroup` tinyint(2) unsigned NOT NULL default '1',
+  `defaultmode` varchar(50) NOT NULL default '',
+  `defaulthook` varchar(50) NOT NULL default '',
+  `sortkey` varchar(50) NOT NULL default '',
+  `sortorder` varchar(50) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Setting of the display formats';
+LOCK TABLES `mdl_glossary_formats` WRITE;
+/*!40000 ALTER TABLE `mdl_glossary_formats` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_glossary_formats` ENABLE KEYS */;
+UNLOCK TABLES;

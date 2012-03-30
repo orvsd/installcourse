@@ -1,0 +1,18 @@
+DROP TABLE IF EXISTS `mdl_question_categories`;
+CREATE TABLE `mdl_question_categories` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `course` bigint(10) unsigned NOT NULL default '0',
+  `name` varchar(255) NOT NULL default '',
+  `info` text NOT NULL,
+  `publish` smallint(4) NOT NULL default '0',
+  `stamp` varchar(255) NOT NULL default '',
+  `parent` bigint(10) unsigned NOT NULL default '0',
+  `sortorder` bigint(10) unsigned NOT NULL default '999',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_quescate_cou_ix` (`course`),
+  KEY `mdl_quescate_par_ix` (`parent`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Categories are for grouping questions';
+LOCK TABLES `mdl_question_categories` WRITE;
+/*!40000 ALTER TABLE `mdl_question_categories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_question_categories` ENABLE KEYS */;
+UNLOCK TABLES;

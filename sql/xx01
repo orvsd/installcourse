@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `adodb_logsql`;
+CREATE TABLE `adodb_logsql` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `created` datetime NOT NULL,
+  `sql0` varchar(250) NOT NULL default '',
+  `sql1` text,
+  `params` text,
+  `tracer` text,
+  `timer` decimal(16,6) NOT NULL default '0.000000',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='to save some logs from ADOdb';
+LOCK TABLES `adodb_logsql` WRITE;
+/*!40000 ALTER TABLE `adodb_logsql` DISABLE KEYS */;
+/*!40000 ALTER TABLE `adodb_logsql` ENABLE KEYS */;
+UNLOCK TABLES;

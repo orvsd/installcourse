@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS `mdl_survey`;
+CREATE TABLE `mdl_survey` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `course` bigint(10) unsigned NOT NULL default '0',
+  `template` bigint(10) unsigned NOT NULL default '0',
+  `days` mediumint(6) NOT NULL default '0',
+  `timecreated` bigint(10) unsigned NOT NULL default '0',
+  `timemodified` bigint(10) unsigned NOT NULL default '0',
+  `name` varchar(255) NOT NULL default '',
+  `intro` text NOT NULL,
+  `questions` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_surv_cou_ix` (`course`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='Each record is one SURVEY module with its configuration';
+LOCK TABLES `mdl_survey` WRITE;
+/*!40000 ALTER TABLE `mdl_survey` DISABLE KEYS */;
+INSERT INTO `mdl_survey` VALUES (1,0,0,0,985017600,985017600,'collesaname','collesaintro','25,26,27,28,29,30,43,44'),(2,0,0,0,985017600,985017600,'collespname','collespintro','31,32,33,34,35,36,43,44'),(3,0,0,0,985017600,985017600,'collesapname','collesapintro','37,38,39,40,41,42,43,44'),(4,0,0,0,985017600,985017600,'attlsname','attlsintro','65,67,68'),(5,0,0,0,985017600,985017600,'ciqname','ciqintro','69,70,71,72,73');
+/*!40000 ALTER TABLE `mdl_survey` ENABLE KEYS */;
+UNLOCK TABLES;

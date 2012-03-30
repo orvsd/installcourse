@@ -1,0 +1,22 @@
+DROP TABLE IF EXISTS `mdl_mnet_log`;
+CREATE TABLE `mdl_mnet_log` (
+  `id` bigint(10) NOT NULL auto_increment,
+  `hostid` bigint(10) unsigned NOT NULL default '0',
+  `remoteid` bigint(10) unsigned NOT NULL default '0',
+  `time` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `ip` varchar(15) NOT NULL default '',
+  `course` bigint(10) unsigned NOT NULL default '0',
+  `coursename` varchar(40) NOT NULL default '',
+  `module` varchar(20) NOT NULL default '',
+  `cmid` bigint(10) unsigned NOT NULL default '0',
+  `action` varchar(40) NOT NULL default '',
+  `url` varchar(100) NOT NULL default '',
+  `info` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_mnetlog_hosusecou_ix` (`hostid`,`userid`,`course`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Store session data from users migrating to other sites';
+LOCK TABLES `mdl_mnet_log` WRITE;
+/*!40000 ALTER TABLE `mdl_mnet_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_mnet_log` ENABLE KEYS */;
+UNLOCK TABLES;

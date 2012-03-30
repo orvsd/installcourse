@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS `mdl_config_plugins`;
+CREATE TABLE `mdl_config_plugins` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `plugin` varchar(100) NOT NULL default 'core',
+  `name` varchar(100) NOT NULL default '',
+  `value` text NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_confplug_plunam_uix` (`plugin`,`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Moodle modules and plugins configuration variables';
+LOCK TABLES `mdl_config_plugins` WRITE;
+/*!40000 ALTER TABLE `mdl_config_plugins` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_config_plugins` ENABLE KEYS */;
+UNLOCK TABLES;

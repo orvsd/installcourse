@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS `mdl_question_match`;
+CREATE TABLE `mdl_question_match` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `question` bigint(10) unsigned NOT NULL default '0',
+  `subquestions` varchar(255) NOT NULL default '',
+  `shuffleanswers` smallint(4) NOT NULL default '1',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_quesmatc_que_ix` (`question`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Defines fixed matching questions';
+LOCK TABLES `mdl_question_match` WRITE;
+/*!40000 ALTER TABLE `mdl_question_match` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_question_match` ENABLE KEYS */;
+UNLOCK TABLES;

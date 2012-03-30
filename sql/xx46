@@ -1,0 +1,27 @@
+DROP TABLE IF EXISTS `mdl_forum`;
+CREATE TABLE `mdl_forum` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `course` bigint(10) unsigned NOT NULL default '0',
+  `type` enum('single','news','general','social','eachuser','teacher','qanda') NOT NULL default 'general',
+  `name` varchar(255) NOT NULL default '',
+  `intro` text NOT NULL,
+  `assessed` bigint(10) unsigned NOT NULL default '0',
+  `assesstimestart` bigint(10) unsigned NOT NULL default '0',
+  `assesstimefinish` bigint(10) unsigned NOT NULL default '0',
+  `scale` bigint(10) NOT NULL default '0',
+  `maxbytes` bigint(10) unsigned NOT NULL default '0',
+  `forcesubscribe` tinyint(1) unsigned NOT NULL default '0',
+  `trackingtype` tinyint(2) unsigned NOT NULL default '1',
+  `rsstype` tinyint(2) unsigned NOT NULL default '0',
+  `rssarticles` tinyint(2) unsigned NOT NULL default '0',
+  `timemodified` bigint(10) unsigned NOT NULL default '0',
+  `warnafter` bigint(10) unsigned NOT NULL default '0',
+  `blockafter` bigint(10) unsigned NOT NULL default '0',
+  `blockperiod` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_foru_cou_ix` (`course`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Forums contain and structure discussion';
+LOCK TABLES `mdl_forum` WRITE;
+/*!40000 ALTER TABLE `mdl_forum` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_forum` ENABLE KEYS */;
+UNLOCK TABLES;

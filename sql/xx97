@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS `mdl_mnet_enrol_assignments`;
+CREATE TABLE `mdl_mnet_enrol_assignments` (
+  `id` bigint(10) NOT NULL auto_increment,
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `hostid` bigint(10) unsigned NOT NULL default '0',
+  `courseid` bigint(10) unsigned NOT NULL default '0',
+  `rolename` varchar(255) NOT NULL default '',
+  `enroltime` bigint(10) unsigned NOT NULL default '0',
+  `enroltype` varchar(20) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_mnetenroassi_hoscou_ix` (`hostid`,`courseid`),
+  KEY `mdl_mnetenroassi_use_ix` (`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Information about enrolments on courses on remote hosts';
+LOCK TABLES `mdl_mnet_enrol_assignments` WRITE;
+/*!40000 ALTER TABLE `mdl_mnet_enrol_assignments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_mnet_enrol_assignments` ENABLE KEYS */;
+UNLOCK TABLES;

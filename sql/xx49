@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_forum_queue`;
+CREATE TABLE `mdl_forum_queue` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `discussionid` bigint(10) unsigned NOT NULL default '0',
+  `postid` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_foruqueu_use_ix` (`userid`),
+  KEY `mdl_foruqueu_dis_ix` (`discussionid`),
+  KEY `mdl_foruqueu_pos_ix` (`postid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='For keeping track of posts that will be mailed in digest for';
+LOCK TABLES `mdl_forum_queue` WRITE;
+/*!40000 ALTER TABLE `mdl_forum_queue` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_forum_queue` ENABLE KEYS */;
+UNLOCK TABLES;

@@ -1,0 +1,24 @@
+DROP TABLE IF EXISTS `mdl_log`;
+CREATE TABLE `mdl_log` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `time` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `ip` varchar(15) NOT NULL default '',
+  `course` bigint(10) unsigned NOT NULL default '0',
+  `module` varchar(20) NOT NULL default '',
+  `cmid` bigint(10) unsigned NOT NULL default '0',
+  `action` varchar(40) NOT NULL default '',
+  `url` varchar(100) NOT NULL default '',
+  `info` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_log_timcoumodact_ix` (`time`,`course`,`module`,`action`),
+  KEY `mdl_log_coumodact_ix` (`course`,`module`,`action`),
+  KEY `mdl_log_couuse_ix` (`course`,`userid`),
+  KEY `mdl_log_use_ix` (`userid`),
+  KEY `mdl_log_inf_ix` (`info`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Every action is logged as far as possible';
+LOCK TABLES `mdl_log` WRITE;
+/*!40000 ALTER TABLE `mdl_log` DISABLE KEYS */;
+INSERT INTO `mdl_log` VALUES (1,1201718788,2,'140.211.18.56',1,'user',0,'update','view.php?id=2&course=1',' '),(2,1201718788,2,'140.211.18.56',1,'upload',0,'upload','http://template.orvsd.org/moodle/user/editadvanced.php?id=2','/var/www/localhost/template.orvsd.org/moodledata/user/0/2/logo.png'),(3,1201718847,2,'140.211.18.56',1,'course',0,'view','view.php?id=1','1'),(4,1201719206,2,'140.211.18.56',1,'user',0,'view','view.php?id=2&course=1','2');
+/*!40000 ALTER TABLE `mdl_log` ENABLE KEYS */;
+UNLOCK TABLES;

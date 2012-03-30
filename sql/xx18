@@ -1,0 +1,18 @@
+DROP TABLE IF EXISTS `mdl_chat`;
+CREATE TABLE `mdl_chat` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `course` bigint(10) unsigned NOT NULL default '0',
+  `name` varchar(255) NOT NULL default '',
+  `intro` text NOT NULL,
+  `keepdays` bigint(11) NOT NULL default '0',
+  `studentlogs` smallint(4) NOT NULL default '0',
+  `chattime` bigint(10) unsigned NOT NULL default '0',
+  `schedule` smallint(4) NOT NULL default '0',
+  `timemodified` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_chat_cou_ix` (`course`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Each of these is a chat room';
+LOCK TABLES `mdl_chat` WRITE;
+/*!40000 ALTER TABLE `mdl_chat` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_chat` ENABLE KEYS */;
+UNLOCK TABLES;

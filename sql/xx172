@@ -1,0 +1,24 @@
+DROP TABLE IF EXISTS `mdl_user_info_field`;
+CREATE TABLE `mdl_user_info_field` (
+  `id` bigint(10) NOT NULL auto_increment,
+  `shortname` varchar(255) NOT NULL default 'shortname',
+  `name` longtext NOT NULL,
+  `datatype` varchar(255) NOT NULL default '',
+  `description` longtext,
+  `categoryid` bigint(10) unsigned NOT NULL default '0',
+  `sortorder` bigint(10) unsigned NOT NULL default '0',
+  `required` tinyint(2) unsigned NOT NULL default '0',
+  `locked` tinyint(2) unsigned NOT NULL default '0',
+  `visible` smallint(4) unsigned NOT NULL default '0',
+  `defaultdata` longtext,
+  `param1` longtext,
+  `param2` longtext,
+  `param3` longtext,
+  `param4` longtext,
+  `param5` longtext,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Customisable user profile fields';
+LOCK TABLES `mdl_user_info_field` WRITE;
+/*!40000 ALTER TABLE `mdl_user_info_field` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_user_info_field` ENABLE KEYS */;
+UNLOCK TABLES;

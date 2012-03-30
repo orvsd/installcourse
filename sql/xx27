@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_context_rel`;
+CREATE TABLE `mdl_context_rel` (
+  `id` bigint(10) NOT NULL auto_increment,
+  `c1` bigint(10) default NULL,
+  `c2` bigint(10) default NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_contrel_c1c2_uix` (`c1`,`c2`),
+  KEY `mdl_contrel_c1_ix` (`c1`),
+  KEY `mdl_contrel_c2_ix` (`c2`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='context relations, c2 is a parent (or higher) of c1';
+LOCK TABLES `mdl_context_rel` WRITE;
+/*!40000 ALTER TABLE `mdl_context_rel` DISABLE KEYS */;
+INSERT INTO `mdl_context_rel` VALUES (1,2,1),(2,2,2),(3,3,1),(4,3,3);
+/*!40000 ALTER TABLE `mdl_context_rel` ENABLE KEYS */;
+UNLOCK TABLES;

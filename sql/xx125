@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS `mdl_question_rqp_servers`;
+CREATE TABLE `mdl_question_rqp_servers` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `typeid` bigint(10) unsigned NOT NULL default '0',
+  `url` varchar(255) NOT NULL default '',
+  `can_render` tinyint(2) unsigned NOT NULL default '0',
+  `can_author` tinyint(2) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_quesrqpserv_typ_ix` (`typeid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Information about RQP servers';
+LOCK TABLES `mdl_question_rqp_servers` WRITE;
+/*!40000 ALTER TABLE `mdl_question_rqp_servers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_question_rqp_servers` ENABLE KEYS */;
+UNLOCK TABLES;

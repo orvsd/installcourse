@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS `mdl_question_attempts`;
+CREATE TABLE `mdl_question_attempts` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `modulename` varchar(20) NOT NULL default 'quiz',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Student attempts. This table gets extended by the modules';
+LOCK TABLES `mdl_question_attempts` WRITE;
+/*!40000 ALTER TABLE `mdl_question_attempts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_question_attempts` ENABLE KEYS */;
+UNLOCK TABLES;

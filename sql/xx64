@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS `mdl_grade_item`;
+CREATE TABLE `mdl_grade_item` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `courseid` bigint(10) unsigned NOT NULL default '0',
+  `category` bigint(10) unsigned NOT NULL default '0',
+  `modid` bigint(10) unsigned NOT NULL default '0',
+  `cminstance` bigint(10) unsigned NOT NULL default '0',
+  `scale_grade` double(11,10) NOT NULL default '1.0000000000',
+  `extra_credit` bigint(10) unsigned NOT NULL default '0',
+  `sort_order` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_graditem_cou_ix` (`courseid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='items to be graded';
+LOCK TABLES `mdl_grade_item` WRITE;
+/*!40000 ALTER TABLE `mdl_grade_item` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_grade_item` ENABLE KEYS */;
+UNLOCK TABLES;

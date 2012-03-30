@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS `mdl_hotpot_questions`;
+CREATE TABLE `mdl_hotpot_questions` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `name` text NOT NULL,
+  `type` smallint(4) unsigned NOT NULL default '0',
+  `text` bigint(10) unsigned NOT NULL default '0',
+  `hotpot` bigint(10) unsigned NOT NULL default '0',
+  `md5key` varchar(32) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_hotpques_md5_ix` (`md5key`),
+  KEY `mdl_hotpques_hot_ix` (`hotpot`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='details about questions in Hot Potatoes quiz attempts';
+LOCK TABLES `mdl_hotpot_questions` WRITE;
+/*!40000 ALTER TABLE `mdl_hotpot_questions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_hotpot_questions` ENABLE KEYS */;
+UNLOCK TABLES;

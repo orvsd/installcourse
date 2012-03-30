@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_lesson_high_scores`;
+CREATE TABLE `mdl_lesson_high_scores` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `lessonid` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `gradeid` bigint(10) unsigned NOT NULL default '0',
+  `nickname` varchar(5) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_lesshighscor_use_ix` (`userid`),
+  KEY `mdl_lesshighscor_les_ix` (`lessonid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='high scores for each lesson';
+LOCK TABLES `mdl_lesson_high_scores` WRITE;
+/*!40000 ALTER TABLE `mdl_lesson_high_scores` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_lesson_high_scores` ENABLE KEYS */;
+UNLOCK TABLES;

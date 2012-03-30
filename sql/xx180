@@ -1,0 +1,27 @@
+DROP TABLE IF EXISTS `mdl_workshop_assessments`;
+CREATE TABLE `mdl_workshop_assessments` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `workshopid` bigint(10) unsigned NOT NULL default '0',
+  `submissionid` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `timecreated` bigint(10) unsigned NOT NULL default '0',
+  `timegraded` bigint(10) unsigned NOT NULL default '0',
+  `timeagreed` bigint(10) unsigned NOT NULL default '0',
+  `grade` double NOT NULL default '0',
+  `gradinggrade` smallint(3) NOT NULL default '0',
+  `teachergraded` smallint(3) unsigned NOT NULL default '0',
+  `mailed` smallint(3) unsigned NOT NULL default '0',
+  `resubmission` smallint(3) unsigned NOT NULL default '0',
+  `donotuse` smallint(3) unsigned NOT NULL default '0',
+  `generalcomment` text NOT NULL,
+  `teachercomment` text NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `mdl_workasse_use_ix` (`userid`),
+  KEY `mdl_workasse_mai_ix` (`mailed`),
+  KEY `mdl_workasse_wor_ix` (`workshopid`),
+  KEY `mdl_workasse_sub_ix` (`submissionid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Info about assessments by teacher and students';
+LOCK TABLES `mdl_workshop_assessments` WRITE;
+/*!40000 ALTER TABLE `mdl_workshop_assessments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_workshop_assessments` ENABLE KEYS */;
+UNLOCK TABLES;

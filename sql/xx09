@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS `mdl_block`;
+CREATE TABLE `mdl_block` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `name` varchar(40) NOT NULL default '',
+  `version` bigint(10) unsigned NOT NULL default '0',
+  `cron` bigint(10) unsigned NOT NULL default '0',
+  `lastcron` bigint(10) unsigned NOT NULL default '0',
+  `visible` tinyint(1) NOT NULL default '1',
+  `multiple` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='to store installed blocks';
+LOCK TABLES `mdl_block` WRITE;
+/*!40000 ALTER TABLE `mdl_block` DISABLE KEYS */;
+INSERT INTO `mdl_block` VALUES (1,'activity_modules',2006011300,0,0,1,0),(2,'admin',2004081200,0,0,1,0),(3,'admin_bookmarks',2006090300,0,0,1,0),(4,'admin_tree',2006090300,0,0,1,0),(5,'blog_menu',2004112000,0,0,1,0),(6,'blog_tags',2006032000,0,0,1,1),(7,'calendar_month',2004081200,0,0,1,0),(8,'calendar_upcoming',2004052600,0,0,1,0),(9,'course_list',2004111600,0,0,1,0),(10,'course_summary',2004052600,0,0,1,0),(11,'glossary_random',2005040500,0,0,1,1),(12,'html',2004123000,0,0,1,1),(13,'loancalc',2005022100,0,0,1,0),(14,'login',2006102700,0,0,1,0),(15,'mentees',2007030900,0,0,1,1),(16,'messages',2004122800,0,0,1,0),(17,'mnet_hosts',2006112100,0,0,1,0),(18,'news_items',2005030800,0,0,1,0),(19,'online_users',2006030100,0,0,1,0),(20,'participants',2004052600,0,0,1,0),(21,'quiz_results',2005082300,0,0,1,1),(22,'recent_activity',2004042900,0,0,1,0),(23,'rss_client',2006100102,0,0,1,1),(24,'search',2007081100,1,0,1,0),(25,'search_forums',2005030900,0,0,1,0),(26,'section_links',2004052800,0,0,1,0),(27,'site_main_menu',2005061300,0,0,1,0),(28,'social_activities',2004041800,0,0,1,0);
+/*!40000 ALTER TABLE `mdl_block` ENABLE KEYS */;
+UNLOCK TABLES;

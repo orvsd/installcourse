@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_backup_ids`;
+CREATE TABLE `mdl_backup_ids` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `backup_code` bigint(12) unsigned NOT NULL default '0',
+  `table_name` varchar(30) NOT NULL default '',
+  `old_id` bigint(10) unsigned NOT NULL default '0',
+  `new_id` bigint(10) unsigned NOT NULL default '0',
+  `info` mediumtext NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_backids_bactabold_uix` (`backup_code`,`table_name`,`old_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='To store and convert ids in backup/restore';
+LOCK TABLES `mdl_backup_ids` WRITE;
+/*!40000 ALTER TABLE `mdl_backup_ids` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_backup_ids` ENABLE KEYS */;
+UNLOCK TABLES;

@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS `mdl_grade_preferences`;
+CREATE TABLE `mdl_grade_preferences` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `courseid` bigint(10) unsigned NOT NULL default '0',
+  `preference` bigint(10) NOT NULL default '0',
+  `value` bigint(10) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_gradpref_coupre_uix` (`courseid`,`preference`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Preferences of the gradebook for each course';
+LOCK TABLES `mdl_grade_preferences` WRITE;
+/*!40000 ALTER TABLE `mdl_grade_preferences` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_grade_preferences` ENABLE KEYS */;
+UNLOCK TABLES;

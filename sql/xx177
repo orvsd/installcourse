@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS `mdl_wiki_locks`;
+CREATE TABLE `mdl_wiki_locks` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `wikiid` bigint(10) unsigned NOT NULL,
+  `pagename` varchar(160) NOT NULL default '',
+  `lockedby` bigint(10) unsigned NOT NULL default '0',
+  `lockedsince` bigint(10) unsigned NOT NULL default '0',
+  `lockedseen` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_wikilock_wikpag_uix` (`wikiid`,`pagename`),
+  KEY `mdl_wikilock_loc_ix` (`lockedseen`),
+  KEY `mdl_wikilock_wik_ix` (`wikiid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Stores editing locks on Wiki pages';
+LOCK TABLES `mdl_wiki_locks` WRITE;
+/*!40000 ALTER TABLE `mdl_wiki_locks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_wiki_locks` ENABLE KEYS */;
+UNLOCK TABLES;

@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS `mdl_grade_exceptions`;
+CREATE TABLE `mdl_grade_exceptions` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `courseid` bigint(10) unsigned NOT NULL default '0',
+  `grade_itemid` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_gradexce_cou_ix` (`courseid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='individual grades to be skipped for certain students';
+LOCK TABLES `mdl_grade_exceptions` WRITE;
+/*!40000 ALTER TABLE `mdl_grade_exceptions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_grade_exceptions` ENABLE KEYS */;
+UNLOCK TABLES;

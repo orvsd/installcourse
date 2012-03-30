@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS `mdl_grade_category`;
+CREATE TABLE `mdl_grade_category` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `name` varchar(64) NOT NULL default '',
+  `courseid` bigint(10) unsigned NOT NULL default '0',
+  `drop_x_lowest` bigint(10) unsigned NOT NULL default '0',
+  `bonus_points` bigint(10) unsigned NOT NULL default '0',
+  `hidden` bigint(10) unsigned NOT NULL default '0',
+  `weight` decimal(5,2) NOT NULL default '0.00',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_gradcate_cou_ix` (`courseid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='to define categories to group activity grades';
+LOCK TABLES `mdl_grade_category` WRITE;
+/*!40000 ALTER TABLE `mdl_grade_category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_grade_category` ENABLE KEYS */;
+UNLOCK TABLES;

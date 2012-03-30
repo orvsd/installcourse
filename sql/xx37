@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS `mdl_data_comments`;
+CREATE TABLE `mdl_data_comments` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `recordid` bigint(10) unsigned NOT NULL default '0',
+  `content` text NOT NULL,
+  `format` tinyint(2) unsigned NOT NULL default '0',
+  `created` bigint(10) unsigned NOT NULL default '0',
+  `modified` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_datacomm_rec_ix` (`recordid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='to comment data records';
+LOCK TABLES `mdl_data_comments` WRITE;
+/*!40000 ALTER TABLE `mdl_data_comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_data_comments` ENABLE KEYS */;
+UNLOCK TABLES;

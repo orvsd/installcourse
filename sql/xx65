@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS `mdl_grade_letter`;
+CREATE TABLE `mdl_grade_letter` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `courseid` bigint(10) unsigned NOT NULL default '0',
+  `letter` varchar(8) NOT NULL default 'NA',
+  `grade_high` decimal(5,2) NOT NULL default '100.00',
+  `grade_low` decimal(5,2) NOT NULL default '0.00',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_gradlett_cou_ix` (`courseid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='to convert numerical grades to letter grades';
+LOCK TABLES `mdl_grade_letter` WRITE;
+/*!40000 ALTER TABLE `mdl_grade_letter` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_grade_letter` ENABLE KEYS */;
+UNLOCK TABLES;

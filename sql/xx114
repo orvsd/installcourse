@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_question_dataset_definitions`;
+CREATE TABLE `mdl_question_dataset_definitions` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `category` bigint(10) unsigned NOT NULL default '0',
+  `name` varchar(255) NOT NULL default '',
+  `type` bigint(10) NOT NULL default '0',
+  `options` varchar(255) NOT NULL default '',
+  `itemcount` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_quesdatadefi_cat_ix` (`category`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Organises and stores properties for dataset items';
+LOCK TABLES `mdl_question_dataset_definitions` WRITE;
+/*!40000 ALTER TABLE `mdl_question_dataset_definitions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_question_dataset_definitions` ENABLE KEYS */;
+UNLOCK TABLES;

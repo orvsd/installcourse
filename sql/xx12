@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_block_rss_client`;
+CREATE TABLE `mdl_block_rss_client` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `title` text NOT NULL,
+  `preferredtitle` varchar(64) NOT NULL default '',
+  `description` text NOT NULL,
+  `shared` tinyint(2) unsigned NOT NULL default '0',
+  `url` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Remote news feed information. Contains the news feed id, the';
+LOCK TABLES `mdl_block_rss_client` WRITE;
+/*!40000 ALTER TABLE `mdl_block_rss_client` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_block_rss_client` ENABLE KEYS */;
+UNLOCK TABLES;

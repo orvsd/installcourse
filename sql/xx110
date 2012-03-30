@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS `mdl_question_answers`;
+CREATE TABLE `mdl_question_answers` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `question` bigint(10) unsigned NOT NULL default '0',
+  `answer` text NOT NULL,
+  `fraction` double NOT NULL default '0',
+  `feedback` text NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `mdl_quesansw_que_ix` (`question`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Answers, with a fractional grade (0-1) and feedback';
+LOCK TABLES `mdl_question_answers` WRITE;
+/*!40000 ALTER TABLE `mdl_question_answers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_question_answers` ENABLE KEYS */;
+UNLOCK TABLES;

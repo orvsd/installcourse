@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS `mdl_workshop_comments`;
+CREATE TABLE `mdl_workshop_comments` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `workshopid` bigint(10) unsigned NOT NULL default '0',
+  `assessmentid` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `timecreated` bigint(10) unsigned NOT NULL default '0',
+  `mailed` tinyint(2) unsigned NOT NULL default '0',
+  `comments` text NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `mdl_workcomm_use_ix` (`userid`),
+  KEY `mdl_workcomm_mai_ix` (`mailed`),
+  KEY `mdl_workcomm_wor_ix` (`workshopid`),
+  KEY `mdl_workcomm_ass_ix` (`assessmentid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Defines comments';
+LOCK TABLES `mdl_workshop_comments` WRITE;
+/*!40000 ALTER TABLE `mdl_workshop_comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_workshop_comments` ENABLE KEYS */;
+UNLOCK TABLES;

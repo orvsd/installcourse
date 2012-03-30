@@ -1,0 +1,24 @@
+DROP TABLE IF EXISTS `mdl_data_fields`;
+CREATE TABLE `mdl_data_fields` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `dataid` bigint(10) unsigned NOT NULL default '0',
+  `type` varchar(255) NOT NULL default '',
+  `name` varchar(255) NOT NULL default '',
+  `description` text NOT NULL,
+  `param1` text,
+  `param2` text,
+  `param3` text,
+  `param4` text,
+  `param5` text,
+  `param6` text,
+  `param7` text,
+  `param8` text,
+  `param9` text,
+  `param10` text,
+  PRIMARY KEY  (`id`),
+  KEY `mdl_datafiel_dat_ix` (`dataid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='every field available';
+LOCK TABLES `mdl_data_fields` WRITE;
+/*!40000 ALTER TABLE `mdl_data_fields` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_data_fields` ENABLE KEYS */;
+UNLOCK TABLES;

@@ -1,0 +1,18 @@
+DROP TABLE IF EXISTS `mdl_groups`;
+CREATE TABLE `mdl_groups` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `name` varchar(254) NOT NULL default '',
+  `description` text,
+  `enrolmentkey` varchar(50) NOT NULL default '',
+  `lang` varchar(30) NOT NULL default 'en',
+  `theme` varchar(50) NOT NULL default '',
+  `picture` bigint(10) unsigned NOT NULL default '0',
+  `hidepicture` tinyint(1) unsigned NOT NULL default '0',
+  `timecreated` bigint(10) unsigned NOT NULL default '0',
+  `timemodified` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Each record represents a group.';
+LOCK TABLES `mdl_groups` WRITE;
+/*!40000 ALTER TABLE `mdl_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_groups` ENABLE KEYS */;
+UNLOCK TABLES;

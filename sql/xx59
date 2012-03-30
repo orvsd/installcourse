@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS `mdl_glossary_entries_categories`;
+CREATE TABLE `mdl_glossary_entries_categories` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `categoryid` bigint(10) unsigned NOT NULL default '0',
+  `entryid` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_glosentrcate_cat_ix` (`categoryid`),
+  KEY `mdl_glosentrcate_ent_ix` (`entryid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='categories of each glossary entry';
+LOCK TABLES `mdl_glossary_entries_categories` WRITE;
+/*!40000 ALTER TABLE `mdl_glossary_entries_categories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_glossary_entries_categories` ENABLE KEYS */;
+UNLOCK TABLES;

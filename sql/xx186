@@ -1,0 +1,30 @@
+DROP TABLE IF EXISTS `mdl_workshop_submissions`;
+CREATE TABLE `mdl_workshop_submissions` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `workshopid` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `title` varchar(100) NOT NULL default '',
+  `timecreated` bigint(10) unsigned NOT NULL default '0',
+  `mailed` tinyint(2) unsigned NOT NULL default '0',
+  `description` text NOT NULL,
+  `gradinggrade` smallint(3) unsigned NOT NULL default '0',
+  `finalgrade` smallint(3) unsigned NOT NULL default '0',
+  `late` smallint(3) unsigned NOT NULL default '0',
+  `nassessments` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_worksubm_use_ix` (`userid`),
+  KEY `mdl_worksubm_mai_ix` (`mailed`),
+  KEY `mdl_worksubm_wor_ix` (`workshopid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Info about submitted work from teacher and students';
+LOCK TABLES `mdl_workshop_submissions` WRITE;
+/*!40000 ALTER TABLE `mdl_workshop_submissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_workshop_submissions` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

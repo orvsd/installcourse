@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS `mdl_backup_config`;
+CREATE TABLE `mdl_backup_config` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  `value` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_backconf_nam_uix` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='To store backup configuration variables';
+LOCK TABLES `mdl_backup_config` WRITE;
+/*!40000 ALTER TABLE `mdl_backup_config` DISABLE KEYS */;
+INSERT INTO `mdl_backup_config` VALUES (1,'backup_sche_modules','0'),(2,'backup_sche_withuserdata','0'),(3,'backup_sche_metacourse','0'),(4,'backup_sche_users','0'),(5,'backup_sche_logs','0'),(6,'backup_sche_userfiles','0'),(7,'backup_sche_coursefiles','0'),(8,'backup_sche_messages','0'),(9,'backup_sche_keep','1'),(10,'backup_sche_active','0'),(11,'backup_sche_weekdays','0000000'),(12,'backup_sche_hour','0'),(13,'backup_sche_minute','0'),(14,'backup_sche_destination','');
+/*!40000 ALTER TABLE `mdl_backup_config` ENABLE KEYS */;
+UNLOCK TABLES;

@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS `mdl_mnet_host2service`;
+CREATE TABLE `mdl_mnet_host2service` (
+  `id` bigint(10) NOT NULL auto_increment,
+  `hostid` bigint(10) unsigned NOT NULL default '0',
+  `serviceid` bigint(10) unsigned NOT NULL default '0',
+  `publish` tinyint(1) unsigned NOT NULL default '0',
+  `subscribe` tinyint(1) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_mnethost_hosser_uix` (`hostid`,`serviceid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Information about the services for a given host';
+LOCK TABLES `mdl_mnet_host2service` WRITE;
+/*!40000 ALTER TABLE `mdl_mnet_host2service` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_mnet_host2service` ENABLE KEYS */;
+UNLOCK TABLES;

@@ -1,0 +1,18 @@
+DROP TABLE IF EXISTS `mdl_mnet_session`;
+CREATE TABLE `mdl_mnet_session` (
+  `id` bigint(10) NOT NULL auto_increment,
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `username` varchar(100) NOT NULL default '',
+  `token` varchar(40) NOT NULL default '',
+  `mnethostid` bigint(10) unsigned NOT NULL default '0',
+  `useragent` varchar(40) NOT NULL default '',
+  `confirm_timeout` bigint(10) unsigned NOT NULL default '0',
+  `session_id` varchar(40) NOT NULL default '',
+  `expires` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_mnetsess_tok_uix` (`token`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Store session data from users migrating to other sites';
+LOCK TABLES `mdl_mnet_session` WRITE;
+/*!40000 ALTER TABLE `mdl_mnet_session` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_mnet_session` ENABLE KEYS */;
+UNLOCK TABLES;

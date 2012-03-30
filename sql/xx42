@@ -1,0 +1,24 @@
+DROP TABLE IF EXISTS `mdl_enrol_authorize`;
+CREATE TABLE `mdl_enrol_authorize` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `paymentmethod` enum('cc','echeck') NOT NULL default 'cc',
+  `refundinfo` smallint(4) unsigned NOT NULL default '0',
+  `ccname` varchar(255) NOT NULL default '',
+  `courseid` bigint(10) unsigned NOT NULL default '0',
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `transid` bigint(10) unsigned NOT NULL default '0',
+  `status` bigint(10) unsigned NOT NULL default '0',
+  `timecreated` bigint(10) unsigned NOT NULL default '0',
+  `settletime` bigint(10) unsigned NOT NULL default '0',
+  `amount` varchar(10) NOT NULL default '',
+  `currency` varchar(3) NOT NULL default 'USD',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_enroauth_cou_ix` (`courseid`),
+  KEY `mdl_enroauth_use_ix` (`userid`),
+  KEY `mdl_enroauth_sta_ix` (`status`),
+  KEY `mdl_enroauth_tra_ix` (`transid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Holds all known information about authorize.net transactions';
+LOCK TABLES `mdl_enrol_authorize` WRITE;
+/*!40000 ALTER TABLE `mdl_enrol_authorize` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_enrol_authorize` ENABLE KEYS */;
+UNLOCK TABLES;

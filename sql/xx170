@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS `mdl_user_info_category`;
+CREATE TABLE `mdl_user_info_category` (
+  `id` bigint(10) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  `sortorder` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Customisable fields categories';
+LOCK TABLES `mdl_user_info_category` WRITE;
+/*!40000 ALTER TABLE `mdl_user_info_category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_user_info_category` ENABLE KEYS */;
+UNLOCK TABLES;

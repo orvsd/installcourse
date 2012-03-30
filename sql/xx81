@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS `mdl_label`;
+CREATE TABLE `mdl_label` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `course` bigint(10) unsigned NOT NULL default '0',
+  `name` varchar(255) NOT NULL default '',
+  `content` text NOT NULL,
+  `timemodified` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_labe_cou_ix` (`course`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Defines labels';
+LOCK TABLES `mdl_label` WRITE;
+/*!40000 ALTER TABLE `mdl_label` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_label` ENABLE KEYS */;
+UNLOCK TABLES;

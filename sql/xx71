@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS `mdl_groups_groupings_groups`;
+CREATE TABLE `mdl_groups_groupings_groups` (
+  `id` bigint(10) NOT NULL auto_increment,
+  `groupingid` bigint(10) unsigned NOT NULL default '0',
+  `groupid` bigint(10) unsigned NOT NULL,
+  `timeadded` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `mdl_grougrougrou_grogro_uix` (`groupingid`,`groupid`),
+  KEY `mdl_grougrougrou_gro_ix` (`groupingid`),
+  KEY `mdl_grougrougrou_gro2_ix` (`groupid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Link a group to a grouping.';
+LOCK TABLES `mdl_groups_groupings_groups` WRITE;
+/*!40000 ALTER TABLE `mdl_groups_groupings_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_groups_groupings_groups` ENABLE KEYS */;
+UNLOCK TABLES;

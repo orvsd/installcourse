@@ -1,0 +1,25 @@
+DROP TABLE IF EXISTS `mdl_wiki`;
+CREATE TABLE `mdl_wiki` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `course` bigint(10) unsigned NOT NULL default '0',
+  `name` varchar(255) NOT NULL default '',
+  `summary` text NOT NULL,
+  `pagename` varchar(255) NOT NULL default '',
+  `wtype` enum('teacher','group','student') NOT NULL default 'group',
+  `ewikiprinttitle` smallint(4) unsigned NOT NULL default '1',
+  `htmlmode` smallint(4) unsigned NOT NULL default '0',
+  `ewikiacceptbinary` smallint(4) unsigned NOT NULL default '0',
+  `disablecamelcase` smallint(4) unsigned NOT NULL default '0',
+  `setpageflags` smallint(4) unsigned NOT NULL default '1',
+  `strippages` smallint(4) unsigned NOT NULL default '1',
+  `removepages` smallint(4) unsigned NOT NULL default '1',
+  `revertchanges` smallint(4) unsigned NOT NULL default '1',
+  `initialcontent` varchar(255) NOT NULL default '',
+  `timemodified` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_wiki_cou_ix` (`course`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Main wik table';
+LOCK TABLES `mdl_wiki` WRITE;
+/*!40000 ALTER TABLE `mdl_wiki` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_wiki` ENABLE KEYS */;
+UNLOCK TABLES;

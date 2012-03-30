@@ -1,0 +1,18 @@
+DROP TABLE IF EXISTS `mdl_forum_read`;
+CREATE TABLE `mdl_forum_read` (
+  `id` bigint(10) unsigned NOT NULL auto_increment,
+  `userid` bigint(10) unsigned NOT NULL default '0',
+  `forumid` bigint(10) unsigned NOT NULL default '0',
+  `discussionid` bigint(10) unsigned NOT NULL default '0',
+  `postid` bigint(10) unsigned NOT NULL default '0',
+  `firstread` bigint(10) unsigned NOT NULL default '0',
+  `lastread` bigint(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `mdl_foruread_usefor_ix` (`userid`,`forumid`),
+  KEY `mdl_foruread_usedis_ix` (`userid`,`discussionid`),
+  KEY `mdl_foruread_usepos_ix` (`userid`,`postid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Tracks each users read posts';
+LOCK TABLES `mdl_forum_read` WRITE;
+/*!40000 ALTER TABLE `mdl_forum_read` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_forum_read` ENABLE KEYS */;
+UNLOCK TABLES;

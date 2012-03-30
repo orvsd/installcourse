@@ -1,0 +1,24 @@
+DROP TABLE IF EXISTS `mdl_timezone`;
+CREATE TABLE `mdl_timezone` (
+  `id` bigint(10) NOT NULL auto_increment,
+  `name` varchar(100) NOT NULL default '',
+  `year` bigint(11) NOT NULL default '0',
+  `tzrule` varchar(20) NOT NULL default '',
+  `gmtoff` bigint(11) NOT NULL default '0',
+  `dstoff` bigint(11) NOT NULL default '0',
+  `dst_month` tinyint(2) NOT NULL default '0',
+  `dst_startday` smallint(3) NOT NULL default '0',
+  `dst_weekday` smallint(3) NOT NULL default '0',
+  `dst_skipweeks` smallint(3) NOT NULL default '0',
+  `dst_time` varchar(6) NOT NULL default '00:00',
+  `std_month` tinyint(2) NOT NULL default '0',
+  `std_startday` smallint(3) NOT NULL default '0',
+  `std_weekday` smallint(3) NOT NULL default '0',
+  `std_skipweeks` smallint(3) NOT NULL default '0',
+  `std_time` varchar(6) NOT NULL default '00:00',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Rules for calculating local wall clock time for users';
+LOCK TABLES `mdl_timezone` WRITE;
+/*!40000 ALTER TABLE `mdl_timezone` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mdl_timezone` ENABLE KEYS */;
+UNLOCK TABLES;
