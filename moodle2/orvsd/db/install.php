@@ -28,9 +28,8 @@ defined('MOODLE_INTERNAL') || die;
 function xmldb_local_siteinfo_install() {
     global $CFG;
     
-	require_once("$CFG->dirroot/local/siteinfo/lib.php");
+	require_once("$CFG->dirroot/local/orvsd/lib.php");
 
-    siteinfo_init_db();
 }
 
 

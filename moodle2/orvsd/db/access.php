@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die;
 
 $capabilities = array(
-    'mod/siteinfo:view' => array(
+    'mod/orvsd:view' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
