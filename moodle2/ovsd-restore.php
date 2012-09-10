@@ -1,35 +1,9 @@
-<?PHP // $Id: cron.php,v 1.98.2.10 2007/10/04 22:18:27 stronk7 Exp $
-
-/// This script looks through all the module directories for cron.php files
-/// and runs them.  These files can contain cleanup functions, email functions
-/// or anything that needs to be run on a regular basis.
-///
-/// This file is best run from cron on the host system (ie outside PHP).
-/// The script can either be invoked via the web server or via a standalone
-/// version of PHP compiled for CGI.
-///
-/// eg   wget -q -O /dev/null 'http://moodle.somewhere.edu/admin/cron.php'
-/// or   php /web/moodle/admin/cron.php 
-
+<?php
     $starttime = microtime();
-
-/// The following is a hack necessary to allow this script to work well 
-/// from the command line.
-
     define('FULLME', 'cron');
 
-
-/// Do not set moodle cookie because we do not need it here, it is better to emulate session
     $nomoodlecookie = true;
 
-/// The current directory in PHP version 4.3.0 and above isn't necessarily the
-/// directory of the script when run from the command line. The require_once()
-/// would fail, so we'll have to chdir()
-
-/*    if (!isset($_SERVER['REMOTE_ADDR']) && isset($_SERVER['argv'][0])) {
-        chdir(dirname($_SERVER['argv'][0]));
-    }
-*/
     require_once(dirname(__FILE__) . '/../config.php');
     require_once($CFG->libdir.'/adminlib.php');
 
@@ -41,9 +15,6 @@
     require_once("$CFG->dirroot/backup/bb/restore_bb.php");
     require_once("$CFG->libdir/blocklib.php");
     require_once("$CFG->libdir/wiki_to_markdown.php" );
-//echo "<pre>CFG:";
-//print_r ($CFG);
-//echo "\r</pre>";
 
 /// extra safety
     @session_write_close();
@@ -73,30 +44,6 @@
     $timenow  = time();
 
     mtrace("Server Time: ".date('r',$timenow)."\n\n");
-
-    //$file = '4/1.7.0/AP_Biology_II.zip';
-/*    if ($argc < 7) {
-        echo "Usage: $argv[0] restore_file teacher_last_name teacher_user_id teacher_pass_md5 teacher_email\n";
-        return false;
-    }
-
-if ($argc > 6) {
-    $file = $argv[1];
-    $firstname = $argv[2];
-    $lastname = $argv[3];
-    $username = $argv[4];
-    $pass = $argv[5];
-    $email = $argv[6];
-} else {
-    global $file, $firstname, $lastname, $username, $pass, $email;
-    echo "\r\r\rno args ... variables: $file, $firstname, $lastname, $username, $pass, $email";
-    if (!$file) {
-    	error('Oops!  No file.  Exiting.');
-	return false;
-    }
-}
-*/
-    
 
     $file = $_GET['file'];
     $firstname = $_GET['firstname'];
