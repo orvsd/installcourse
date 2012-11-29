@@ -25,12 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-function xmldb_local_siteinfo_install() {
-    global $CFG;
-    
-	require_once("$CFG->dirroot/local/orvsd/lib.php");
-
+function xmldb_local_orvsd_install() {
+  global $DB, $CFG;
+  require_once("$CFG->dirroot/local/orvsd/lib.php");
+  orvsd_init();
+  return true;
 }
-
-
-
