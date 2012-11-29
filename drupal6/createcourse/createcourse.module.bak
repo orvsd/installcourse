@@ -1,0 +1,358 @@
+<?php
+// $Id$: createcourse.module,v 0.1 2009/02/18 05:23:21 gchaix Exp $
+
+/**
+ * @file
+ * createcourse module
+ *
+ * Creates Moodle courses
+ *
+ */
+
+/* TODO db_next_id() is gone, and replaced as db_last_insert_id()
+   Since db_next_id() introduce some problems, and the use of this function
+   can be replaced by database level auto increment handling, db_next_id()
+   is now gone and replaced as db_last_insert_id() with help of serial type
+   under Schema API (check out http://drupal.org/node/149176 for more details).
+   Please refer to drupal_write_record() as demonstration. */
+
+/* TODO FormAPI image buttons are now supported.
+   FormAPI now offers the 'image_button' element type, allowing developers to
+   use icons or other custom images in place of traditional HTML submit buttons.
+
+$form['my_image_button'] = array(
+  '#type'         => 'image_button',
+  '#title'        => t('My button'),
+  '#return_value' => 'my_data',
+  '#src'          => 'my/image/path.jpg',
+); */
+
+/* TODO Remove $row argument from db_result() method
+   The $row argument of db_result() was removed from the database abstraction
+   layer in 6.x core, as it was a database dependent option. Developers need to
+   use other handling to replace the needs of this method. */
+
+/* TODO Change 'Submit' to 'Save' on buttons
+   It has been agreed on that the description 'Submit' for a button is not a
+   good choice since it does not indicate what actually happens. While for
+   example on node editing forms, 'Preview' and 'Delete' describe exactly what
+   will happen when the user clicks on the button, 'Submit' only gives a vague
+   idea. When labelling your buttons, make sure that it is clear what this
+   button does when the user clicks on it. */
+
+/* TODO Node previews and adding form fields to the node form.
+   There is a subtle but important difference in the way node previews (and other
+   such operations) are carried out when adding or editing a node. With the new
+   Forms API, the node form is handled as a multi-step form. When the node form
+   is previewed, all the form values are submitted, and the form is rebuilt with
+   those form values put into $form['#node']. Thus, form elements that are added
+   to the node form will lose any user input unless they set their '#default_value'
+   elements using this embedded node object. */
+
+/* TODO New user_mail_tokens() method may be useful.
+   user.module now provides a user_mail_tokens() function to return an array
+   of the tokens available for the email notification messages it sends when
+   accounts are created, activated, blocked, etc. Contributed modules that
+   wish to make use of the same tokens for their own needs are encouraged
+   to use this function. */
+
+/* TODO
+   There is a new hook_watchdog in core. This means that contributed modules
+   can implement hook_watchdog to log Drupal events to custom destinations.
+   Two core modules are included, dblog.module (formerly known as watchdog.module),
+   and syslog.module. Other modules in contrib include an emaillog.module,
+   included in the logging_alerts module. See syslog or emaillog for an
+   example on how to implement hook_watchdog.
+function example_watchdog($log = array()) {
+  if ($log['severity'] == WATCHDOG_ALERT) {
+    mysms_send($log['user']->uid,
+      $log['type'],
+      $log['message'],
+      $log['variables'],
+      $log['severity'],
+      $log['referer'],
+      $log['ip'],
+      format_date($log['timestamp']));
+  }
+} */
+
+/* TODO Implement the hook_theme registry. Combine all theme registry entries
+   into one hook_theme function in each corresponding module file.
+function createcourse_theme() {
+  return array(
+  );
+}; */
+
+
+/* TODO
+   An argument for replacements has been added to format_plural(),
+   escaping and/or theming the values just as done with t().*/
+
+/**
+ * hook_menu()
+ */
+function createcourse_menu() {
+  $items = array();
+  global $user, $server;
+  $server = db_result(db_query("SELECT domain from {orvsd_schools} WHERE school = '%s'", $user->profile_school));
+  $items['createcourse'] = array(
+    'title' => 'ORVSD Course Creation',
+    'page callback' => 'createcourse_page',
+    'access arguments' => array('create courses'),
+  );
+  $items['createcourse/my'] = array(
+    'title' => 'My Moodle',
+    'page callback' => 'createcourse_page',
+    'access arguments' => array('create courses'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+function createcourse_perm() {
+  return array('create courses');
+}
+
+/**
+ * called when user goes to site.com/?q=createcourse
+ */
+function createcourse_page() {
+  $output = t('');
+  global $user, $server, $courselist;
+  profile_load_profile($user);
+  // Set up $server variable to contain school server's domain name
+  $server = db_result(db_query("SELECT domain from {orvsd_schools} WHERE school = '%s'", $user->profile_school));
+  $courselist = createcourse_courselist();
+  $create_args = explode("createcourse/", $_GET['q']);
+  //drupal_set_message(t("$create_args[1]"));
+  if ($_GET['q'] == "createcourse/my") {
+    header("Location: http://$server/moodle/my");
+    $output = "Go to <a href='http://$server/moodle/my'>My Moodle</a> now.";
+    return $output;
+  }
+  if ($_GET['q'] == "createcourse/test") {
+    $output = t('');
+    profile_load_profile($user);
+    $server = db_result(db_query("SELECT domain from {orvsd_schools} WHERE school = '%s'", $user->profile_school));
+    $output = "server: $server, user>profile_school: '$user->profile_school'";
+  }
+  // Sanitize $create_args
+  //dvm($create_args);
+  //dvm($courselist);
+  $course = $create_args[1];
+  $course = htmlentities($course);
+
+  // User must be logged in to create courses
+  if (!$user->uid) {
+    form_set_error('user_name', t("You are not logged in.  Please <a href='user'>log in</a> to create a course."));
+    return $output;
+  } elseif ((in_array($course, $courselist)) or ($course == "blank.zip")) {
+    //drupal_set_message(t("Directly creating course - $create_args[1]"));
+    $watchdog_report = "$user->uid directly created $course on $server";
+    watchdog('createcourse', $watchdog_report);
+    // Create course
+    createcourse_create($course);
+    $output = "Go to <a href='http://$server/my'>My Moodle</a> now.";
+    return $output;
+  } else {
+    // Return HTML generated from the $form data structure
+    $output .= drupal_get_form('createcourse_createform');
+    return $output;
+  } 
+//  else {
+//    form_set_error('user_name', t("Sorry, you must be an authorized teacher to create a course."));
+//    return $output;
+//  }
+}
+
+/**
+ * Defines form
+ */
+function createcourse_createform() {
+  //$server = 'dev';
+  global $user, $server, $courselist;
+  $form['template_options'] = array(
+    '#type' => 'value',
+    '#value' => $courselist
+  );
+  $form['course_template'] = array(
+    '#title' => t('Course template'),
+    '#type' => 'select',
+    '#description' => t('Please select the course template you would like to use for your new course.'),
+    '#options' => $form['template_options']['#value'],
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Create!'),
+  );
+  return $form;
+}
+
+/**
+ *  Validate form
+ */
+function createcourse_createform_validate($form, &$form_state) {
+  if (!$form_state['values']['course_template']) {
+    // Validation fail
+    form_set_error('course_template', t('FAIL!'));
+  }
+}
+
+function createcourse_create($file) {
+  global $user, $server;
+  profile_load_profile($user);
+  $firstname = urlencode($user->profile_firstname);
+  $lastname = urlencode($user->profile_lastname);
+  $username = $user->name;
+  $school = $user->profile_school;
+  $email = $user->mail;
+  $pass = $user->pass;
+  //$file = $form_state['values']['course_template'];
+  //$server = variable_get('createcourse_server', 'bogus.orvsd.org');
+  //$server = db_result(db_query("SELECT domain from {orvsd_schools} WHERE school = '%s'", $user->profile_school));
+  // If server does not exist, create it
+  $sites_path = "/var/www/vhosts/moodlesites";
+  if ((!is_file("/var/www/localhost/moodle_shared/multisite_config/$server.ini")) and (!is_file("$sites_path/$server.ini"))) {
+    drupal_set_message(t("Server does not exist: $server.  Creating it."));
+    // Insert vhost name into vhost.map
+    drupal_set_message(t("Creating vhost: $server"));
+    $vhostmap = '/var/www/vhosts/vhost.map';
+    if (is_file($vhostmap)) {
+        $vhostfh = fopen($vhostmap,'a+');
+        $vhost_str = $server . " /var/www/vhosts/moodle19\n";
+        drupal_set_message(t($vhost_str));
+        $fwrite = fwrite($vhostfh, $vhost_str);
+        if (!$fwrite) {
+                form_set_error('course_template',t("Creation of $server vhost failed!"));
+                return FALSE;
+        }
+        fclose($vhostfh);
+    } else {
+        form_set_error('course_template',t("Cannot find $vhostmap for $server"));
+        return FALSE;
+    }
+    // Generate server.fqdn.ini file for Moodle
+    $dbname1 = substr(ereg_replace("\.", "_", $server), 0, 16);
+    $dbname = substr(ereg_replace("-", "_", $dbname1), 0, 16);
+    drupal_set_message(t("dbname: $dbname"));
+    $dbhost = "columbia.orvsd.org";
+    $dbpass = "";
+    //Generate random password
+    $passlen = rand(8, 16);  // Use a minimum 8 char password
+    $salt = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijlkmnopqrstuvwxyz";  // Chars to choose from
+    $i = 0;
+    while ($i < $passlen) {
+      $dbpass = $dbpass . substr($salt, rand()%strlen($salt), 1);
+      $i++;
+    }
+    // Write Moodle config file
+    if (!is_file("$sites_path/$server.ini")) {
+      $moodle_fh = fopen("$sites_path/$server.ini", "w");
+      chmod("$sites_path/$server.ini", 0660);
+      $moodle_config = "[$server]\ndbhost = $dbhost\ndbname = $dbname\ndbuser = $dbname\ndbpass = $dbpass";
+      fwrite($moodle_fh, $moodle_config);
+      fclose($moodle_fh);
+    }
+    // Create moodledata directory
+    if (!is_dir("/var/www/vhosts/moodledata/$server")) {
+      mkdir("/var/www/vhosts/moodledata/$server", 0770);
+    }
+    // Create Moodle database
+    drupal_set_message(t("Loading template into: $dbname"));
+    db_set_active('orvsd_admin');
+    $query_create = "CREATE DATABASE $dbname";
+    $query_grant = "GRANT ALL ON $dbname.* TO '$dbname'@'yin.orvsd.org' IDENTIFIED BY '$dbpass'";
+    $query_flush = "FLUSH PRIVILEGES";
+    $result = db_query($query_create);
+    $result2 = db_query($query_grant);
+    $result3 = db_query($query_flush);
+    // Connect to newly-created db
+    global $db_url;
+    $db_url[$dbname] = "mysql://$dbname:$dbpass@$dbhost/$dbname";
+    $db_set = db_set_active($dbname);
+    // Load Moodle database
+    // Customize DB dump with school name
+    $school = explode(" - ", $user->profile_school);
+    $moodle_fullname = $school[1];
+    $moodle_shortname = $school[1];
+    $module_path = drupal_get_path('module', 'createcourse');
+    $query_template = explode(";;", trim(file_get_contents("$module_path" . "/sql/template19-20090807.sql")));
+    $result4 = db_query("use $dbname");
+    foreach ($query_template as $q) {
+      $q = trim($q);
+      if (!$q == "") {
+        //if (strpos("FULLNAME", $q)) {
+        $q = ereg_replace("ORVSD_FULLNAME", $moodle_fullname, $q);
+        $q = ereg_replace("ORVSD_SHORTNAME", $moodle_shortname, $q);
+        $q = ereg_replace("template.orvsd.org", $server, $q);
+        //drupal_set_message(t('"'. $q .'"'));
+        //}
+        $result5 = db_query($q);
+      }
+    }
+    // Moodle doesn't like to create the editing teacher on the first course created on a new server.  Create a dummy course to get that out of the way
+    //$url = "http://". $server ."/moodle/admin/ovsd-restore.php?file=blank.zip&firstname=ORVSD&lastname=Admin&email=webmaster@orvsd.org&username=admin&pass=passwordhashi";
+    //$contenthandle = fopen($url, 'r');
+    //$content = stream_get_contents($contenthandle);
+    // Leave admin db and return to Drupal database credentials
+    db_set_active('default');
+  }
+  // Ensure helpdesk account exists
+  //drupal_set_message(t("Creating helpdesk account"));
+  $helpdesk_url = "http://". $server ."/moodle/admin/helpdesk_user.php";
+  $helpdesk_handle = fopen($helpdesk_url, 'r');
+  $helpdesk_watchdog = stream_get_contents($helpdesk_handle);
+  watchdog('createcourse', t($helpdesk_watchdog));
+  // Actually create the course by restoring the template zip file
+  //drupal_set_message(t("Restoring $file on $server"));
+  $coursename = ereg_replace("_", " ", basename($file, ".zip"));
+  $url = "http://". $server ."/moodle/admin/ovsd-restore.php?file=". $file ."&firstname=". $firstname ."&lastname=". $lastname ."&email=". $email ."&username=". $username ."&pass=". $pass;
+  $contenthandle = fopen($url, 'r');
+  $content = stream_get_contents($contenthandle);
+  //dvm($url);
+  //dvm($content);
+  $create_output = ereg("(http:.*)$", $content, $regs);
+  $friendlyname = urldecode($firstname);
+  drupal_set_message(t("Congratulations, %name.  Your course - %coursename - has been created at: <br><a href='@url'>@url</a><br/>Please bookmark this link.", array('%name' => $friendlyname, '%coursename' => $coursename, '@url' => $regs[1])));
+  $destination = "createcourse/my";
+  // Just in case, make sure active DB is default before returning
+  db_set_active('default');
+  $watchdog_report = "$username created $file on $server";
+  watchdog('createcourse', $watchdog_report);
+  //$form_state['redirect'] = $destination;
+  return $destination;
+}
+
+/**
+ *  Post-validation form submission
+ */
+function createcourse_createform_submit($form, &$form_state) {
+  $file = $form_state['values']['course_template'];
+  drupal_set_message(t("Creating course from template: $file"));
+  $destination = createcourse_create($file);
+  $form_state['redirect'] = $destination;
+}
+
+function createcourse_courselist() {
+  $courselist = array();
+  //$courselist['blank.zip'] = 'Empty course';
+  // Get list of available course templates and add to $courselist array
+    $courseshandle = opendir("/var/www/vhosts/moodledata/ORVSD");
+    while ($f = readdir($courseshandle)) {
+            if (substr($f, -4) == ".zip") {
+              $n = "ORVSD/$f";
+        $courselist[$n] = $n;
+      }
+    }
+ // Get NROC course list and append to $courselist array
+    $courseshandle = opendir("/var/www/vhosts/moodledata/NROC");
+    while ($f = readdir($courseshandle)) {
+            if (substr($f, -4) == ".zip") {
+              $n = "NROC/$f";
+        $courselist[$n] = $n;
+      }
+    }
+  ksort($courselist);
+  $courselist = array('blank.zip' => 'Empty course') + $courselist;
+  return $courselist;
+}
