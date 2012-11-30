@@ -86,7 +86,7 @@ function createcourse_page() {
   }
 
   if ($_GET['q'] == "createcourse/my" && $server) {
-    header("Location: http://$server/my");
+    header("Location: $server/my");
     $output = "Go to <a href='$server/my'>My Moodle</a> now.";
     return $output;
   }
