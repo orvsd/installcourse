@@ -133,10 +133,17 @@ class local_orvsd_external extends external_api {
 
     // extract the given backup file to a temp dir
     $backup_unique_code = time();
+
+    $backup_file = $course_array['filepath'] . $course_array['file'];
+
+    $tempdir = $CFG->dataroot."/temp/backup/" . $backup_unique_code;
+
+    /*
     $backup_file = $CFG->dataroot . "/" . $course_array['filepath'] 
                                   . $course_array['file'];
 
     $tempdir = $CFG->dataroot."/temp/backup/" . $backup_unique_code;
+    */
 
     try { 
       $fb = get_file_packer();
