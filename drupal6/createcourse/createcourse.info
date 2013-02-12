@@ -4,5 +4,5 @@ description = Automates creation of Moodle courses in the ORVSD infrastructure
 package = ORVSD
 dependencies[] = profile
 
-version = "6.x-0.6"
+version = "6.x-0.9"
 core = 6.x
