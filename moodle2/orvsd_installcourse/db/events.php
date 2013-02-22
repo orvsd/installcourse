@@ -15,17 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * siteinfo plugin version information
- *
+ * Defines events for the siteino plugin. These events will trigger
+ * siteinfo database updates
  * @package    local
- * @subpackage siteinfo
- * @copyright  2012 Kenneth Lett (http://osuosl.org)
+ * @subpackage orvsd_installcourse
+ * @copyright  2013 OSU Open Source Lab (http://osuosl.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2013021202;       // The current module version (Date: YYYYMMDDXX)
-$plugin->requires  = 2011120502;       // Requires this Moodle version
-$plugin->release = 0.9;
+global $CFG;
+$libfile = $CFG->dirroot . '/local/orvsd_installcourse/lib.php';
 
+$handlers = array (
+    'orvsd_installcourse_updated' => array (
+         'handlerfile'      => $libfile,
+         'handlerfunction'  => 'orvsd_installcourse_update',
+         'schedule'         => 'instant'
+     )
+);

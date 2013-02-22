@@ -15,22 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * siteinfo module capability definition
+ * siteinfo plugin install script
  *
  * @package    local
- * @subpackage siteinfo
- * @copyright  2012 Kenneth Lett (http://osuosl.org)
+ * @subpackage orvsd_installcourse
+ * @copyright  2013 OSU Open Source Lab (http://osuosl.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-$capabilities = array(
-    'mod/orvsd:view' => array(
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW
-        )
-    )
-);
+function xmldb_local_orvsd_installcourse_install() {
+  global $DB, $CFG;
+  require_once("$CFG->dirroot/local/orvsd_installcourse/lib.php");
+  orvsd_init();
+  return true;
+}

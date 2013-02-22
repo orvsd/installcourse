@@ -16,17 +16,18 @@
 /**
  * Web service local plugin template external functions and service definitions.
  *
- * @package    localwstemplate
- * @copyright  2011 Jerome Mouneyrac
+ * @package    local
+ * @subpackage orvsd_installcourse
+ * @copyright  2013 OSU Open Source Lab (http://osuosl.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 // We defined the web service functions to install.
 $functions = array(
-        'local_orvsd_create_course' => array(
-                'classname'   => 'local_orvsd_external',
-                'methodname'  => 'create_course',
-                'classpath'   => 'local/orvsd/externallib.php',
+        'local_orvsd_installcourse_install_course' => array(
+                'classname'   => 'local_orvsd_installcourse_external',
+                'methodname'  => 'install_course',
+                'classpath'   => 'local/orvsd_insallcourse/externallib.php',
                 'description' => 'Given a course filename and user info, creates a course via file restore and assigns the given user to it.',
                 'type'        => 'write',
         )
@@ -35,7 +36,7 @@ $functions = array(
 // We define the services to install as pre-build services. A pre-build service is not  editable by administrator.
 $services = array(
         'Create Course' => array(
-                'functions' => array ('local_orvsd_create_course'),
+                'functions' => array ('local_orvsd_installcourse_install_course'),
                 'restrictedusers' => 0,
                 'enabled'=>1,
         )

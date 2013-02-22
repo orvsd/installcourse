@@ -18,15 +18,15 @@
  * orvsd plugin function library 
  *
  * @package    local
- * @subpackage orvsd
- * @copyright  2012 Kenneth Lett (http://osuosl.org)
+ * @subpackage orvsd_installcourse
+ * @copyright  2013 OSU Open Source Lab (http://osuosl.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
 defined('MOODLE_INTERNAL') || die;
 
-function orvsd_init() {
+function orvsd_installcourse_init() {
   global $CFG, $DB;
   
   $event_data = new stdClass();
@@ -35,10 +35,10 @@ function orvsd_init() {
   // we can register an event, but for now this is redundant
   //events_trigger('orvsd_updated', $eventdata); 
   //
-  orvsd_update($event_data);  
+  orvsd_installcourse_update($event_data);  
 }
 
-function orvsd_update($event_data) {
+function orvsd_installcourse_update($event_data) {
     global $CFG, $DB;
 
     // turn on webservices and make sure the rest protocol is enabled
@@ -56,15 +56,30 @@ function orvsd_update($event_data) {
         }
     }
 
-    if(strpos($protocols_config->value, "rest") === false) {
+    if (!$protocols_config) {
+        $protocols_config = new stdClass();
+        $protocols_config->name = 'webserviceprotocols';   
+        $protocols_config->value = 'rest';
         echo "Web Services REST protocol is not enabled, enabling now... ";
-        $protocols_config->value .= ',rest';
-        $success = $DB->update_record('config', $protocols_config);
-
+        $success = $DB->insert_record('config', $protocols_config);
         if ($success) {
             echo "Success!<br>";
         } else {
             echo "Failed!<br>";
+        }
+
+    } else {
+        if(strpos($protocols_config->value, "rest") === false) {
+
+            echo "Web Services REST protocol is not enabled, enabling now... ";
+            $protocols_config->value .= ',rest';
+            $success = $DB->update_record('config', $protocols_config);
+
+            if ($success) {
+                echo "Success!<br>";
+            } else {
+                echo "Failed!<br>";
+            }
         }
     }
 
@@ -100,7 +115,7 @@ function orvsd_update($event_data) {
         try {
             $DB->update_record('external_tokens', $external_token);
         } catch (Exception $e) {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
+            echo 'Caught exception: ',  $e->getMessage(), "<br>";
             return false;
         }
       } else {

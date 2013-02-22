@@ -5,29 +5,29 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-//
+//  
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-//
+//  
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * siteinfo plugin install script
- *
+    
+/** 
+ * siteinfo plugin function library 
+ *  
  * @package    local
- * @subpackage siteinfo
- * @copyright  2012 Kenneth Lett (http://osuosl.org)
+ * @subpackage orvsd_installcourse
+ * @copyright  2013 OSU Open Source Lab (http://osuosl.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+ */   
 
 defined('MOODLE_INTERNAL') || die;
 
-function xmldb_local_orvsd_install() {
-  global $DB, $CFG;
-  require_once("$CFG->dirroot/local/orvsd/lib.php");
-  orvsd_init();
+function xmldb_local_orvsd_installcourse_upgrade($oldversion = 0) {
+  global $CFG;
+  require_once("$CFG->dirroot/local/orvsd_installcourse/lib.php");
+  orvsd_installcourse_init();
   return true;
 }

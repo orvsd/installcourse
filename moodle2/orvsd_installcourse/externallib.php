@@ -10,13 +10,13 @@
 
 require_once($CFG->libdir . "/externallib.php");
 
-class local_orvsd_external extends external_api {
+class local_orvsd_installcourse_external extends external_api {
 
   /**
    * Returns description of method parameters
    * @return external_function_parameters
    */
-  public static function create_course_parameters() {
+  public static function install_course_parameters() {
     return new external_function_parameters(
       array(
         'filepath'    => new external_value(PARAM_TEXT, 'Where the files are located'),
@@ -40,7 +40,7 @@ class local_orvsd_external extends external_api {
    * Returns the status of the course creation
    * @return string status
    */
-  public static function create_course(
+  public static function install_course(
       $filepath, $file, $courseid, $coursename, $shortname, 
       $category, $firstname, $lastname, $city, $username, 
       $email, $pass) {
@@ -63,7 +63,7 @@ class local_orvsd_external extends external_api {
         'pass'      => $pass
       );
 
-    $params = self::validate_parameters(self::create_course_parameters(), $param_array);
+    $params = self::validate_parameters(self::install_course_parameters(), $param_array);
 
     //Context validation
     $context = get_context_instance(CONTEXT_USER, $USER->id);
@@ -81,30 +81,39 @@ class local_orvsd_external extends external_api {
     }
 
     //Restore the course file into this site
-    $courseid = local_orvsd_external::restore_course($param_array);
+    $courseid = local_orvsd_installcourse_external::restore_course($param_array);
 
     if (!$courseid) {
       return "Course creation failed.";
+    } else {
+        $course = $DB->get_record('course', array('id'=>$courseid));
+        // Trigger a create course event
+        events_trigger('course_created', $course);
     }
 
-    //if the user does not exist, create them
-    $user = $DB->get_record('user', array('username'=>$username));
-    if(!$user) {
-      $user = local_orvsd_external::create_user($param_array);
-    }
+    // if username is "none" we aren't creating/enrolling a user, so
+    // skip all that stuff
 
-    $user_fullname = $user->firstname . " " . $user->lastname;
+    if($username != "none") {
+        //if the user does not exist, create them
+        $user = $DB->get_record('user', array('username'=>$username));
+        if(!$user) {
+          $user = local_orvsd_installcourse_external::create_user($param_array);
+        }
 
-    if(!$user) {
-      return "Failed to create user " . $user_fullname;
-    }
+        $user_fullname = $user->firstname . " " . $user->lastname;
 
-    //assign the user to the course
-    $roleid = 3; // "Teacher" role
-    $status = local_orvsd_external::assign_user($courseid, $user, $roleid);
+        if(!$user) {
+          return "Failed to create user " . $user_fullname;
+        }
 
-    if(!$status) {
-      return "Failed to enrol user " . $user_fullname . " in course " . $coursename;
+        //assign the user to the course
+        $roleid = 3; // "Teacher" role
+        $status = local_orvsd_installcourse_external::assign_user($courseid, $user, $roleid);
+
+        if(!$status) {
+          return "Failed to enrol user " . $user_fullname . " in course " . $coursename;
+        }
     }
 
     return "Course " . $coursename . " created for " . $user_fullname;
@@ -114,7 +123,7 @@ class local_orvsd_external extends external_api {
    * Returns description of method result value
    * @return external_description
    */
-  public static function create_course_returns() {
+  public static function install_course_returns() {
     return new external_value(PARAM_TEXT, 'Success status.');
   }
 
@@ -138,12 +147,6 @@ class local_orvsd_external extends external_api {
 
     $tempdir = $CFG->dataroot."/temp/backup/" . $backup_unique_code;
 
-    /*
-    $backup_file = $CFG->dataroot . "/" . $course_array['filepath'] 
-                                  . $course_array['file'];
-
-    $tempdir = $CFG->dataroot."/temp/backup/" . $backup_unique_code;
-    */
 
     try { 
       $fb = get_file_packer();
@@ -194,6 +197,8 @@ class local_orvsd_external extends external_api {
     $course_fixname->startdate  = 0;
 
     $DB->update_record('course', $course_fixname, $bulk=false);
+
+
 
     return $newcourseid;
   }
