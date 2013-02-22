@@ -27,7 +27,7 @@ $functions = array(
         'local_orvsd_installcourse_install_course' => array(
                 'classname'   => 'local_orvsd_installcourse_external',
                 'methodname'  => 'install_course',
-                'classpath'   => 'local/orvsd_insallcourse/externallib.php',
+                'classpath'   => 'local/orvsd_installcourse/externallib.php',
                 'description' => 'Given a course filename and user info, creates a course via file restore and assigns the given user to it.',
                 'type'        => 'write',
         )
@@ -35,7 +35,7 @@ $functions = array(
 
 // We define the services to install as pre-build services. A pre-build service is not  editable by administrator.
 $services = array(
-        'Create Course' => array(
+        'Install Course' => array(
                 'functions' => array ('local_orvsd_installcourse_install_course'),
                 'restrictedusers' => 0,
                 'enabled'=>1,

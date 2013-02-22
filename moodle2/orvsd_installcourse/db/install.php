@@ -28,6 +28,6 @@ defined('MOODLE_INTERNAL') || die;
 function xmldb_local_orvsd_installcourse_install() {
   global $DB, $CFG;
   require_once("$CFG->dirroot/local/orvsd_installcourse/lib.php");
-  orvsd_init();
+  orvsd_installcourse_init();
   return true;
 }
