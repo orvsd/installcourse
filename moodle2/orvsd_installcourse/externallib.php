@@ -47,7 +47,9 @@ class local_orvsd_installcourse_external extends external_api {
     
     global $CFG, $USER, $DB;
     $status = true;
-    
+
+    $serial = $courseid;
+
     $param_array = array(
         'filepath'  => $filepath,
         'file'      => $file,
@@ -89,6 +91,11 @@ class local_orvsd_installcourse_external extends external_api {
         $course = $DB->get_record('course', array('id'=>$courseid));
         // Trigger a create course event
         events_trigger('course_created', $course);
+
+        // update coursemeta table
+        $coursemeta = $DB->get_record('coursemeta', array('courseid'=>$courseid));
+        $coursemeta->serial = $serial;
+        $DB->update_record('coursemeta', $coursemeta);
     }
 
     // if username is "none" we aren't creating/enrolling a user, so
