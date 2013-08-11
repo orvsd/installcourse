@@ -152,8 +152,7 @@ class local_orvsd_installcourse_external extends external_api {
 
     $backup_file = $course_array['filepath'] . $course_array['file'];
 
-    $tempdir = $CFG->dataroot."/temp/backup/" . $backup_unique_code;
-
+    $tempdir = $CFG->tempdir. "/backup/" . $backup_unique_code;
 
     try {
       $fb = get_file_packer();
