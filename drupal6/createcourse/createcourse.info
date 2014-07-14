@@ -1,8 +1,0 @@
-; $Id$
-name = ORVSD Create Course
-description = Automates creation of Moodle courses in the ORVSD infrastructure
-package = ORVSD
-dependencies[] = profile
-
-version = "6.x-0.9"
-core = 6.x
