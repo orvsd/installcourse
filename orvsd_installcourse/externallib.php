@@ -46,6 +46,8 @@ class local_orvsd_installcourse_external extends external_api {
       $email, $pass) {
 
     global $CFG, $USER, $DB;
+    // Include the coursecat methods for creating the category
+    require_once($CFG->libdir.'/coursecatlib.php');
     $status = true;
 
     $serial = $courseid;
@@ -81,6 +83,16 @@ class local_orvsd_installcourse_external extends external_api {
     if (!has_capability('moodle/restore:restorecourse', $context)) {
       throw new moodle_exception('cannotrestorecourse');
     }
+
+    $coursecat_record = $DB->get_record('course_categories', array('name' => $params['category']));
+    if (!$coursecat_record) {
+        $created = coursecat::create(array('name' => $params['category']));
+        $ccat_id = $created->id;
+    } else {
+        $ccat_id = $coursecat_record->id;
+    }
+
+    $param_array['category'] = $ccat_id;
 
     //Restore the course file into this site
     $courseid = local_orvsd_installcourse_external::restore_course($param_array);
