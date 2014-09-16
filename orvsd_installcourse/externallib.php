@@ -84,6 +84,7 @@ class local_orvsd_installcourse_external extends external_api {
       throw new moodle_exception('cannotrestorecourse');
     }
 
+    // Create course category if it does not exist
     $coursecat_record = $DB->get_record('course_categories', array('name' => $params['category']));
     if (!$coursecat_record) {
         $created = coursecat::create(array('name' => $params['category']));
@@ -92,6 +93,7 @@ class local_orvsd_installcourse_external extends external_api {
         $ccat_id = $coursecat_record->id;
     }
 
+    // Change from the name to the ID of the course category
     $param_array['category'] = $ccat_id;
 
     //Restore the course file into this site
@@ -162,7 +164,7 @@ class local_orvsd_installcourse_external extends external_api {
     // extract the given backup file to a temp dir
     $backup_unique_code = time();
 
-    $backup_file = $course_array['filepath'] . $course_array['file'];
+    $backup_file = $course_array['filepath'] . '/' . $course_array['file'];
 
     $tempdir = $CFG->tempdir. "/backup/" . $backup_unique_code;
 
@@ -287,7 +289,7 @@ class local_orvsd_installcourse_external extends external_api {
 
     //get enrolment instance (manual and student)
     $instances = enrol_get_instances($courseid, false);
-    $enrolment = stdClass();
+    $enrolment = new stdClass();
     foreach ($instances as $instance) {
       if ($instance->enrol === 'manual') {
         $enrolment = $instance;
