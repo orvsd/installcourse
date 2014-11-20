@@ -85,7 +85,7 @@ function orvsd_installcourse_update($event_data) {
 
     // Look up the service, if it doesn't exist, create it
     $service_id = $DB->get_field('external_services',
-      'id', array('component'=>'local_orvsd'), IGNORE_MISSING);
+      'id', array('shortname'=>'orvsd_installcourse'), IGNORE_MISSING);
 
     if (!$service_id) {
         $tmp = $DB->get_records_sql('SHOW TABLE STATUS WHERE name = "mdl_external_services"');
