@@ -82,22 +82,15 @@ class local_orvsd_installcourse_external extends external_api {
       throw new moodle_exception('cannotrestorecourse');
     }
 
-    if (file_exists($CFG->libdir.'/coursecatlib.php')) {
-        // Include the coursecat methods for creating the category
-        require_once($CFG->libdir.'/coursecatlib.php');
-
-        // Create course category if it does not exist
-        $coursecat_record = $DB->get_record('course_categories', array('name' => $params['category']));
-        if (!$coursecat_record) {
-            $created = coursecat::create(array('name' => $params['category']));
-            $ccat_id = $created->id;
-        } else {
-            $ccat_id = $coursecat_record->id;
-        }
-    } else {
+    // Create course category if it does not exist
+    // This assumes the course category lib is missing and in 2.2 it is
+    $coursecat_record = $DB->get_record('course_categories', array('name' => $params['category']));
+    if (!$coursecat_record) {
         $coursecat = new stdClass();
         $coursecat->name = $params['category'];
         $ccat_id = $DB->insert_record('course_categories', $coursecat);
+    } else {
+        $ccat_id = $coursecat_record->id;
     }
 
     // Change from the name to the ID of the course category
